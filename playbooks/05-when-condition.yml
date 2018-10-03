@@ -1,0 +1,14 @@
+- name: Demo on Conditions
+  hosts: all 
+  gather_facts: true
+  tasks:
+    - name: Print this message based on condition 
+      debug:
+        msg: "OS = RedHat Family"
+      when: ansible_os_family == 'RedHat'
+
+    - name: Print this message based on condition 
+      debug:
+        msg: "OS = Debain Family"
+      when: ansible_os_family == 'Debain'
+

@@ -1,0 +1,6 @@
+- name: Setup Application complete stack 
+  hosts: all 
+  become: yes 
+  gather_facts: yes 
+  roles:
+    - stack

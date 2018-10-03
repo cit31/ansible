@@ -1,0 +1,11 @@
+- name: Find the files inside a directory
+  hosts: all
+  tasks:
+    - name: Find files
+      find:
+        paths: /tmp
+        file_type: any
+      register: out 
+
+    - debug: msg="{{out}}"
+    

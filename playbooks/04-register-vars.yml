@@ -1,0 +1,25 @@
+- name: Register variable from tasks 
+  hosts:  all
+  tasks:
+    - name: Execute some shell command 
+      shell: uptime 
+      register: out
+
+    - name: Print registred data 
+      debug:
+        msg: "{{out.stdout}}"
+
+- name: Define variable in middle of the tasks
+  hosts: all 
+  tasks:
+    - name: Execute a shell command 
+      shell: uptime 
+      register: out 
+
+    - name: Define a variable 
+      set_fact:
+        EXIT_STATUS: "{{out.rc}}"
+
+    - name: Print Exit Status 
+      debug:
+        msg: "Exit Status = {{EXIT_STATUS}}"

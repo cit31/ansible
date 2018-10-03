@@ -1,0 +1,15 @@
+- name: Install HTTP Server 
+  package:
+    name: httpd
+    state: installed
+
+- name: Update proxy config 
+  template:
+    src: tomcat.conf.j2
+    dest: /etc/httpd/conf.d/tomcat.conf
+
+- name: Restart httpd service 
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes

@@ -1,0 +1,7 @@
+- name: Print some message
+  hosts: all
+  tasks:
+    - name: Print sample message 
+      debug:
+        msg: "Welcome to Ansible"
+        

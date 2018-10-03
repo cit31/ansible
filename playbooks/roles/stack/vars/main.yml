@@ -1,0 +1,9 @@
+TOMCAT_URL: http://mirrors.fibergrid.in/apache/tomcat/tomcat-9/v9.0.12/bin/apache-tomcat-9.0.12.tar.gz
+TOMCAT_TAR: "{{ TOMCAT_URL.split('/')|last }}"
+TOMCAT_DIR: "/home/studentapp/{{ TOMCAT_TAR | regex_replace('.tar.gz') }}"
+
+APP_WAR: https://github.com/cit31/project-1/raw/master/student.war
+WAR_FILENAME: "{{ APP_WAR.split('/')|last }}"
+
+JDBC_URL: https://github.com/cit31/project-1/raw/master/mysql-connector-java-5.1.40.jar
+JDBC_FILENAME: "{{ JDBC_URL.split('/')|last }}"

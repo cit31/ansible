@@ -1,0 +1,9 @@
+- name: Demo on filters
+  hosts: all
+  vars:
+    URL: http://mirrors.fibergrid.in/apache/tomcat/tomcat-9/v9.0.12/bin/apache-tomcat-9.0.12.tar.gz
+    TAR: "{{ URL.split('/')|last }} "
+    DIR: "{{TAR | regex_replace('.tar.gz')}}"
+  tasks:
+    - debug:
+        msg: "{{TAR}}   --   {{DIR}} "

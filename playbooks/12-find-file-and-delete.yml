@@ -1,0 +1,16 @@
+- name: find files and remove them 
+  hosts: all
+  become: yes
+  tasks:
+    - name: find files
+      find:
+        paths: /tmp
+        patterns: "*.txt"
+        file_type: any
+      register: out 
+
+    - name: delete files
+      file:
+        path: "{{item.path}}"
+        state: absent
+      loop: "{{out.files}}"

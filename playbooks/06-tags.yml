@@ -1,0 +1,22 @@
+- name: Demo on tags 
+  hosts: all
+  tasks:
+    - name: Installing WEB Server
+      debug:
+        msg: "Installing Web Server"
+      tags:
+        - WEB 
+        - APP 
+
+    - name: Installing APP Server
+      debug:
+        msg: "Installing APP Server"
+      tags:
+        - WEB 
+        - APP 
+
+    - name: Installing DB Server
+      debug:
+        msg: "Installing DB Server"
+      tags:
+        - DB

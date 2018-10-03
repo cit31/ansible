@@ -1,0 +1,7 @@
+- name: Test local facts
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - debug:
+        msg: "{{ansible_local.info.env}}"
+      when: ansible_local.info.env == "DEV"

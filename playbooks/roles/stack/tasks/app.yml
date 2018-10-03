@@ -1,0 +1,65 @@
+- name: Install Java
+  package:
+    name: java 
+    state: present
+
+- name: Add a application user 
+  user:
+    name: studentapp
+
+- name: Download and extract tomcat 
+  unarchive:
+    src: "{{TOMCAT_URL}}"
+    dest: /home/studentapp
+    remote_src: yes
+  become_user: studentapp
+
+- name: Find files in webapps
+  find:
+    paths: "{{TOMCAT_DIR}}/webapps"
+    file_type: any 
+  register: out 
+
+- name: Remove the files in webapps
+  file:
+    path: "{{item.path}}"
+    state: absent
+  loop: "{{out.files}}"
+
+- name: Download war file 
+  get_url:
+    url: "{{APP_WAR}}"
+    dest: "{{TOMCAT_DIR}}/webapps/{{WAR_FILENAME}}"
+  become_user: studentapp
+
+- name: Download JDBC file 
+  get_url:
+    url: "{{JDBC_URL}}"
+    dest: "{{TOMCAT_DIR}}/lib/{{JDBC_FILENAME}}"
+  become_user: studentapp
+
+- name: Inlcude Variable of DB Parameters
+  include_vars:
+    file: dbparams.yml
+
+- name: Update the context.xml file 
+  template:
+    src: context.xml.j2 
+    dest: "{{TOMCAT_DIR}}/conf/context.xml"
+  become_user: studentapp
+
+- name: Create tomcat init script 
+  get_url:
+    url: https://raw.githubusercontent.com/cit31/project-1/master/tomcat-init
+    dest: /etc/init.d/tomcat
+    mode: 0755
+
+- name: Start tomcat service 
+  service:
+    name: tomcat
+    state: started 
+    enabled: yes
+
+  
+
+  

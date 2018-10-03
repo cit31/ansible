@@ -1,0 +1,17 @@
+- name: demo on running different tasks with different user   
+  hosts: all
+  become: yes
+  tasks:
+    - name: run id command
+      shell: id
+      become_user: root
+      register: out1
+
+    - debug: msg="{{out1}}"
+
+    - name: run id command
+      shell: id
+      become_user: sample
+      register: out2
+
+    - debug: msg="{{out2}}"

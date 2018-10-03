@@ -1,0 +1,54 @@
+- name: Play for Define and access variables 
+  hosts: all 
+  vars:
+    URL: play.google.com
+  tasks:
+    - name: Print Data in a variable
+      debug:
+        msg: "URL = {{URL}}"
+      vars:
+        URL: tasks.google.com
+
+- name: Play for asking input from user
+  hosts: all
+  vars_prompt:
+      - name: URL  
+        prompt: "Enter the URL"
+        private: no
+  tasks:
+    - name: Print Data in a variable
+      debug:
+        msg: "URL = {{URL}}"
+
+- name: Play fo loading variables from another file 
+  hosts: all
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Print variable from a file 
+      debug:
+        msg: "URL = {{URL}}"
+
+- name: Play to access variable from ansible-playbook cli 
+## Going to run the command as fdollows 
+## ansible-playbook playbooks/03-variables.yml -e URL1=parse.google.com
+  hosts: all
+  tasks:
+    - name: Print variable from cli 
+      debug:
+        msg: "URL1 = {{URL1}}"
+
+- name: Play to access variables from hosts file 
+  hosts: all
+  tasks:
+    - name: Print variable from hosts file  
+      debug:
+        msg: "URL2 = {{URL2}}"
+
+- name: Access ansible default facts 
+  hosts: all 
+  #gather_facts: true 
+  tasks:
+    - name: Print hostname of the server
+      debug:
+        msg: "Hostname = {{ansible_hostname}}"

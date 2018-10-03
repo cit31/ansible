@@ -1,0 +1,27 @@
+- name: Sample from role 
+  debug:
+    msg: Sample from role
+
+- name: COpy some file 
+  copy:
+    src: sample.txt 
+    dest: /tmp/sample.txt 
+  notify: TEST_HANDLER
+
+- name: URL 
+  debug:
+    msg: URL = {{URL}}
+
+- name: Template 
+  template:
+    src: test.j2
+    dest: /tmp/test.txt
+  notify: TEST_HANDLER
+
+- name: inlcude 
+  include_vars:
+    file: dbparams.yml
+
+- name: DBNAME
+  debug:
+   msg: "DBUSER = {{DBUSER}}"
