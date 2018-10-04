@@ -38,9 +38,15 @@
     dest: "{{TOMCAT_DIR}}/lib/{{JDBC_FILENAME}}"
   become_user: studentapp
 
-- name: Inlcude Variable of DB Parameters
+- name: Inlcude Variable of DEV DB Parameters
   include_vars:
-    file: dbparams.yml
+    file: dbparams-dev.yml
+  when: ansible_local.info.env == "DEV"
+
+- name: Inlcude Variable of PROD DB Parameters
+  include_vars:
+    file: dbparams-prd.yml
+  when: ansible_local.info.env == "PROD"
 
 - name: Update the context.xml file 
   template:
