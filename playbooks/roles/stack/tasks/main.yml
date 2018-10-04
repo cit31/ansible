@@ -3,14 +3,14 @@
   tags:
     - WEB
     - APP
-  when: DB
+  when: DB is undefined
 
 - name: Include App Play 
   include: app.yml
   tags:
     - WEB 
     - APP
-  when: DB 
+  when: DB is undefined 
 
 - name: Fact 
   debug: msg="{{ansible_local.info.env}}"
@@ -19,10 +19,10 @@
   include: db.yml
   tags:
     - DB
-  when: ansible_local.info.env == "DEV" and DB
+  when: ansible_local.info.env == "DEV" and DB is undefined
 
 - name: Run DB play for PROD
   include: db.yml
-  when: DB 
+  when: DB is defined
 
 
