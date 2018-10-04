@@ -15,7 +15,7 @@
 
 - name: Include DB Play 
   include: db.yml
-  #tags:
-  #  - DB
+  tags:
+    - DB
   when: ansible_local.info.env == "DEV"
 
