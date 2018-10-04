@@ -1,0 +1,11 @@
+- name: Include playts
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Include play1
+      include: play1.yml
+    - name: Include Play2
+      include: play2.yml
+      when: ansible_local.info.env == "DEV"
+  roles:
+   - include

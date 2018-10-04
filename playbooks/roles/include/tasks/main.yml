@@ -1,0 +1,10 @@
+- name: Include play1
+  include: play1.yml
+  tags:
+   - DB
+- name: Include Play2
+  include: play2.yml
+  tags:
+   - APP
+  when: ansible_local.info.env == "DEV"
+
