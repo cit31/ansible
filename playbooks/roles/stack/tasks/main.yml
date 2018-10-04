@@ -13,5 +13,9 @@
 - name: Fact 
   debug: msg="{{ansible_local.info.env}}"
 
-
+- name: Include DB Play 
+  include: db.yml
+  tags:
+    - DB
+  when: ansible_local.info.env == "DEV"
 
