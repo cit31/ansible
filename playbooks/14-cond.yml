@@ -1,0 +1,8 @@
+- name: Pick a play based on variable 
+  hosts: all
+  tasks:
+    - name: debu1
+      debug: msg=debug1
+   
+    - debug: msg=debug2
+      when: NAME
