@@ -3,14 +3,14 @@
   tags:
     - WEB
     - APP
-  when: not DB
+  when: DB
 
 - name: Include App Play 
   include: app.yml
   tags:
     - WEB 
     - APP
-  when: not DB 
+  when: DB 
 
 - name: Fact 
   debug: msg="{{ansible_local.info.env}}"
@@ -19,7 +19,7 @@
   include: db.yml
   tags:
     - DB
-  when: ansible_local.info.env == "DEV" and not DB
+  when: ansible_local.info.env == "DEV" and DB
 
 - name: Run DB play for PROD
   include: db.yml
