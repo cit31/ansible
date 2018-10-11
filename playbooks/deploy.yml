@@ -1,6 +1,24 @@
-- name: Setup Application complete stack 
+- name: Deploy Student Application
   hosts: all 
   become: yes 
   gather_facts: yes 
+  vars:
+    TOMCAT_DIR: /home/studentapp/apache-tomcat-9.0.12
   tasks:
-    - debug:
+    - name: Find files in webapps
+      find:
+        paths: "{{TOMCAT_DIR}}/webapps"
+        file_type: any 
+      register: out 
+
+    - name: Remove the files in webapps
+      file:
+        path: "{{item.path}}"
+        state: absent
+      loop: "{{out.files}}"
+
+    - name: Copy war file 
+      copy:
+        src: /var/lib/jenkins/workspace/StudentProject-CICD/MAVEN/target/studentapi.war
+        dest: "{{TOMCAT_DIR}}/webapps/student.war"
+      become_user: studentapp
