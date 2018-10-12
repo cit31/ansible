@@ -6,6 +6,12 @@
     - MySQL-python
     - mariadb-server 
 
+- name: Add lower case table names.
+  lineinfile:
+    path: /etc/my.cnf
+    insertafter: '^\[mysqld\]$'
+    line: 'lower_case_table_names=1'
+
 - name: Start MariaDB Serice 
   service:
     name: mariadb
